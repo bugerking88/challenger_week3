@@ -1,26 +1,16 @@
 <?php
 require_once("PDOConnect.php");
 header("content-type: text/html; charset=utf-8");
-ignore_user_abort();//關掉瀏覽器，PHP腳本也可以繼續執行.
-set_time_limit(0);// 通過set_time_limit(0)可以讓程式無限制的執行下去
-$interval=60;// 每隔半小時運行
+ignore_user_abort();
+set_time_limit(0);
+$interval=60;
 
 class GetNews_OK extends PDOConnect
 {
     public function goCatch()
     {
-        $head = ['Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Encoding:gzip, deflate, sdch',
-        'Accept-Language:zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4',
-        'Cache-Control:max-age=0',
-        'Connection:keep-alive',
-        'Cookie:PHPSESSID=tm59m24b7lakv99cttf6vti5a7',
-        'Host:www.228365365.com',
-        'If-Modified-Since:Wed, 17 Aug 2016 07:40:29 GMT',
-        'Referer:http://www.228365365.com/app/member/FT_browse/index.php?uid=test00&langx=zh-cn&mtype=3&league_id=&showtype=',
-        'Upgrade-Insecure-Requests:1',
-        'User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'];
-        $url = "http://www.228365365.com/app/member/FT_browse/body_var.php?uid=test00&rtype=r&langx=zh-cn&mtype=3&delay=&league_id";
+        $head = ['User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'];
+        $url = "http://www.228365365.com/app/member/FT_future/body_var.php?uid=test00&rtype=r&langx=zh-cn&mtype=3&delay=&league_id=";
         $ch = curl_init();
 
         //設定連結
@@ -43,7 +33,7 @@ class GetNews_OK extends PDOConnect
             $ans = str_replace("<br>", " ", $ans);
             $ans = str_replace("<font color=red>Running Ball</font>", "", $ans);
             eval($ans);
-            // echo $ans."\n";
+            echo $ans."\n";
         }
         foreach($GameFT as $data)
         {
@@ -85,7 +75,6 @@ class GetNews_OK extends PDOConnect
     }
 }
 $GetNews_OK1 = new GetNews_OK();
-$GetNews_OK1->goCatch();
 do{
     $GetNews_OK1->goCatch();
     sleep($interval);// 等待60s
