@@ -33,7 +33,6 @@ class GetNews_OK extends PDOConnect
             $ans = str_replace("<br>", " ", $ans);
             $ans = str_replace("<font color=red>Running Ball</font>", "", $ans);
             eval($ans);
-            echo $ans."\n";
         }
         foreach($GameFT as $data)
         {
@@ -50,7 +49,6 @@ class GetNews_OK extends PDOConnect
             $result['handicapHalf'] = $data[25]." ".$data[26];
             $result['sizeHalf'] = $data[29]." ".$data[30];
             $this->insertData($result);
-            unset($result);
         }
      }
 
@@ -75,6 +73,7 @@ class GetNews_OK extends PDOConnect
     }
 }
 $GetNews_OK1 = new GetNews_OK();
+$GetNews_OK1->goCatch();
 do{
     $GetNews_OK1->goCatch();
     sleep($interval);// 等待60s

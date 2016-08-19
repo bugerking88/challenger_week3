@@ -4,7 +4,7 @@ require_once("PDOConnect.php");
 error_reporting(E_ALL & ~E_NOTICE);
 ignore_user_abort();
 set_time_limit(0);
-$interval=60;
+
 $mc = new Memcached();
 $mc->addServer("localhost", 11211);
 class setData extends PDOConnect
@@ -24,7 +24,7 @@ $result=$setDateMem->getDataList();
 do{
     $setDateMem->getDataList();
     $mc->set("foo", $result);
-    sleep($interval);// 等待60s
+    sleep(60);// 等待60s
 }while(true);
-// $mc->set("foo", $result);
+
 
